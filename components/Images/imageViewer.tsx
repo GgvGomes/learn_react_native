@@ -1,6 +1,11 @@
 import { StyleSheet, Image } from "react-native";
 
-export function ImageViewer({ source, selectedImage }) {
+type ImageViewerProps = {
+    source: any;
+    selectedImage: string | null;
+}
+
+export function ImageViewer({ source, selectedImage } : ImageViewerProps) {
     const imageSouce = selectedImage != null ? { uri: selectedImage } : source;
 
     return <Image
@@ -11,7 +16,7 @@ export function ImageViewer({ source, selectedImage }) {
 
 const styles = StyleSheet.create({
     image: {
-        width: '70vw',
+        width: 320,
         height: '60vh',
         borderRadius: 18,
     },
