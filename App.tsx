@@ -18,6 +18,8 @@ import { captureRef } from 'react-native-view-shot';
 
 import domtoimage from 'dom-to-image';
 
+// import { StatusBar } from 'expo-status-bar';
+
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -149,7 +151,7 @@ export default function App() {
         <EmojiList onCloseModal={onModalClose} onSelect={setPickedEmoji} />
       </EmojiPicker>
 
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </GestureHandlerRootView>
   );
 }
