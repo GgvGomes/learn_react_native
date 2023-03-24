@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from './components/buttons/button';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import { ImageViewer } from './components/Images/imageViewer';
 import * as ImagePicker from 'expo-image-picker';
@@ -13,6 +13,9 @@ import { EmojiList } from './components/emojis/emojiList';
 import { EmojiSticker } from './components/emojis/emojiSticker';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import * as MediaLibrary from 'expo-media-library';
+import { captureRef } from 'react-native-view-shot';
+
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -20,6 +23,13 @@ export default function App() {
   const [showAppOptions, setShowAppOptions] = useState(false);
 
   const [pickedEmoji, setPickedEmoji] = useState(null);
+
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+  const imageRef = useRef();
+
+  if (status === null) {
+    requestPermission();
+  }
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -71,6 +81,19 @@ export default function App() {
   }
 
   const onSaveImageAsync = async () => {
+    try {
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      })
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if(localUri){
+        alert('Saved!!')
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -78,12 +101,11 @@ export default function App() {
       {/* <View style={styles.container}> */}
 
       <View style={styles.imageContainer}>
-        <ImageViewer
-          source={placeHolderImage}
-          selectedImage={selectedImage}
-        />
+        <View ref={imageRef} collapsable={false}>
+          <ImageViewer source={placeHolderImage} selectedImage={selectedImage} />
 
-        {pickedEmoji != null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji} /> : null}
+          {pickedEmoji != null ? <EmojiSticker imageSize={40} stickerSource={pickedEmoji} /> : null}
+        </View>
       </View>
 
       {showAppOptions ?
@@ -92,7 +114,6 @@ export default function App() {
             <View style={styles.optionsRow}>
               <IconButton icon='refresh' label="Reset" onPress={onReset} />
               <CircleButton onPress={onAddSticker} />
-              {/* <CircleButton onPress={setIsModalVisible(true)} /> */}
               <IconButton icon='save-alt' label="Save" onPress={onSaveImageAsync} />
             </View>
           </View>
