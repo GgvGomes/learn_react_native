@@ -11,6 +11,7 @@ import { CircleButton } from './components/buttons/CircleButton';
 import { EmojiPicker } from './components/emojis/emojiPicker';
 import { EmojiList } from './components/emojis/emojiList';
 import { EmojiSticker } from './components/emojis/emojiSticker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -73,7 +74,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
+      {/* <View style={styles.container}> */}
 
       <View style={styles.imageContainer}>
         <ImageViewer
@@ -87,11 +89,11 @@ export default function App() {
       {showAppOptions ?
         (
           <View style={styles.optionsContainer}>
-              <View style={styles.optionsRow}>
-                <IconButton icon='refresh' label="Reset" onPress={onReset} />
-                <CircleButton onPress={onAddSticker} />
-                <IconButton icon='save-alt' label="Save" onPress={onSaveImageAsync} />
-              </View>
+            <View style={styles.optionsRow}>
+              <IconButton icon='refresh' label="Reset" onPress={onReset} />
+              <CircleButton onPress={onAddSticker} />
+              <IconButton icon='save-alt' label="Save" onPress={onSaveImageAsync} />
+            </View>
           </View>
         )
         : (
@@ -107,7 +109,7 @@ export default function App() {
       </EmojiPicker>
 
       <StatusBar style="auto" />
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
