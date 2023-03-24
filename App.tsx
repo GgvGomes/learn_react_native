@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { ImageViewer } from './components/Images/imageViewer';
 import * as ImagePicker from 'expo-image-picker';
 import { IconButton } from './components/buttons/iconButton';
-import { CircleButton } from './components/buttons/CircleButton';
+import { CircleButton } from './components/buttons/circleButton';
 import { EmojiPicker } from './components/emojis/emojiPicker';
 import { EmojiList } from './components/emojis/emojiList';
 import { EmojiSticker } from './components/emojis/emojiSticker';
@@ -92,6 +92,7 @@ export default function App() {
             <View style={styles.optionsRow}>
               <IconButton icon='refresh' label="Reset" onPress={onReset} />
               <CircleButton onPress={onAddSticker} />
+              {/* <CircleButton onPress={setIsModalVisible(true)} /> */}
               <IconButton icon='save-alt' label="Save" onPress={onSaveImageAsync} />
             </View>
           </View>
