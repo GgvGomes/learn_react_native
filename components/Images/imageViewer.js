@@ -9,8 +9,8 @@ export function ImageViewer({ source }) {
 
 const styles = StyleSheet.create({
     image: {
-        width: 340,
-        height: '80%',
+        width: '70vw',
+        height: '60vh',
         borderRadius: 18,
     },
 });
