@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Platform, View } from 'react-native';
 import { Button } from './components/buttons/button';
 
 import { useState, useRef } from 'react';
@@ -15,6 +15,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import * as MediaLibrary from 'expo-media-library';
 import { captureRef } from 'react-native-view-shot';
+
+import domtoimage from 'dom-to-image';
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -81,18 +83,35 @@ export default function App() {
   }
 
   const onSaveImageAsync = async () => {
-    try {
-      const localUri = await captureRef(imageRef, {
-        height: 440,
-        quality: 1,
-      })
+    if (Platform.OS !== 'web') {
+      try {
+        const localUri = await captureRef(imageRef, {
+          height: 440,
+          quality: 1,
+        })
 
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if(localUri){
-        alert('Saved!!')
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        if (localUri) {
+          alert('Saved!!')
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
+    } else {
+      domtoimage.toPng(imageRef.current, {
+        quality: 1,
+        with: 320,
+        height: document.querySelector('#root').getBoundingClientRect().height * 0.6,
+      })
+        .then(function (dataUrl) {
+          let link = document.createElement('a');
+          link.download = 'sticker-smash.png';
+          link.href = dataUrl;
+          link.click();
+        })
+        .catch(e => {
+          console.log(e);
+        })
     }
   }
 
