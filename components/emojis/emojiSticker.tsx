@@ -22,8 +22,9 @@ export function EmojiSticker({ imageSize, stickerSource }) {
                 scaleImage.value = scaleImage.value * 2;
             }
         },
-    });
+    }, [scaleImage]);
     const imageStyle = useAnimatedStyle(() => {
+        // window._frameTimestamp = null
         return {
             width: withSpring(scaleImage.value),
             height: withSpring(scaleImage.value),
@@ -43,7 +44,7 @@ export function EmojiSticker({ imageSize, stickerSource }) {
             translateX.value = context.translateX + event.translationX;
             translateY.value = context.translateY + event.translationY;
         }
-    });
+    }, [translateX, translateY]);
 
     const containerStyle = useAnimatedStyle(() => {
         return {
@@ -60,7 +61,7 @@ export function EmojiSticker({ imageSize, stickerSource }) {
 
     return (
         <PanGestureHandler onGestureEvent={onDrag}>
-            <AnimatedView style={{ top: '-58vh' }}>
+            <AnimatedView style={[containerStyle, { top: '-58vh' }]}>
                 <TapGestureHandler onGestureEvent={onDoubleTap} numberOfTaps={2}>
                     <AnimatedImage
                         source={stickerSource}
