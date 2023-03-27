@@ -4,16 +4,16 @@ My fisrt app in react native.
 This is an app to save photos and add icons.
 
 # Main Page
-<div style="flex: 1">
-  <img width="260" height="500" src="./assets/first_page.png" style="margin-left: 200px; border: 1px solid #ffd33d" />
-</div>
+<p align="center">
+  <img width="260" height="500" src="./assets/first_page.png" />
+</p>
 
 # Edit/Save Page
-<center style="flex: 1">
-  <img width="260" height="500" src="./assets/second_page.png" style="margin-left: 200px; border: 1px solid #ffd33d" />
-</center>
+<p align="center">
+  <img width="260" height="500" src="./assets/second_page.png" />
+</p>
 
 # Emoji Page
-<div style="flex: 1; margin-left: 200px">
-  <img width="260" height="500" src="./assets/emoji_page.png" style="margin-left: 200px; border: 1px solid #ffd33d" />
-</div>
+<p align="center">
+  <img width="260" height="500" src="./assets/emoji_page.png" />
+</p>
