@@ -7,5 +7,5 @@ This is an app to save photos and add icons.
 
 # Main Page
 <div style={flex: 1}>
-  <img width="200" height="400" style="margin: auto" />
+  <img width="220" height="400" src="./assets/first_page.png" style="margin-left: 20%" />
 </div>
